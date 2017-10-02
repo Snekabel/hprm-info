@@ -1,8 +1,8 @@
 #!/bin/sh
-#=====================================================================================
+#==========================================================================================
 # HighPoint RAID Manager info exporter
-# Exports the xml with the info/status of all arrays and disks HighPoint RAID Manager.
-#=====================================================================================
+# Exports the xml with the info/status of all arrays and disks from HighPoint RAID Manager.
+#==========================================================================================
 case "$1" in
 	"")
 		echo "Error: IP missing" >&2
