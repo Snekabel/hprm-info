@@ -6,7 +6,7 @@
 case "$1" in
 	"")
 		echo "Error: IP missing" >&2
-		echo "Usage: $(basename $0) {ip} {port} {path-to-credentials-file} {path-to-export-directory}" >&2
+		echo "Usage: $(basename $0) {ip} {port} {path-to-credentials-file}" >&2
 		exit 3
 	;;
 	*)
@@ -56,15 +56,6 @@ case "$3" in
 	;;
 esac
 
-case "$4" in
-	"")
-		exportdir=.
-	;;
-	*)
-		exportdir=$4
-	;;
-esac
-
 hprmsessionid=$(hprmsessionid=$(curl --silent "http://${hprmip}:${hprmport}/login.cgi" --data "func=Auth&user=${hprmuser}&pwd=${hprmpwd}&submit=Login"|grep -oPm1 "(?<=session_id>)[^<]+") && echo $hprmsessionid|tr '\r' ' ')
-curl --silent "http://${hprmip}:${hprmport}/arrman.cgi?userid=${hprmsessionid}" -o $exportdir/hprm-info.xml
+curl --silent "http://${hprmip}:${hprmport}/arrman.cgi?userid=${hprmsessionid}"
 curl --silent -S "http://${hprmip}:${hprmport}/login.cgi" --data "func=Logout&userid=${hprmsessionid}" > /dev/null
